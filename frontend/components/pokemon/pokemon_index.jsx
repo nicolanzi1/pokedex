@@ -10,13 +10,13 @@ export default class PokemonIndex extends Component {
         const { pokemon } = this.props;
 
         return (
-          <section className="pokedex">
-            <ul>
-              {pokemon.map((poke) => (
-                <li key={poke.id}>{poke.name}</li>
-              ))}
-            </ul>
-          </section>
+            <section className="pokedex">
+                <ul>
+                {pokemon.map((poke) => (
+                    <li key={poke.id}>{poke.name}</li>
+                ))}
+                </ul>
+            </section>
         );
     }
 }
