@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import PokemonDetailContainer from './pokemon_detail_container';
+import Item from '../items/item';
+import ItemDetailContainer from '../items/item_detail_container';
 
 export default class PokemonDetail extends Component {
     componentDidMount() {
@@ -15,7 +16,7 @@ export default class PokemonDetail extends Component {
     }
 
     render() {
-        const { pokemon } = this.props;
+        const { pokemon, items } = this.props;
 
         if (!pokemon) return null;
 
@@ -33,8 +34,14 @@ export default class PokemonDetail extends Component {
                     <li>Defense: {pokemon.defense}</li>
                     <li>Moves: {pokemon.moves.join(', ')}</li>
                 </ul>
+                <section className="toys">
+                    <h3>Items</h3>
+                    <ul className="toy-list">
+                        {items.map(item => <Item key={item.name} item={item} />)}
+                    </ul>
+                </section>
 
-                <Route path="/pokemon/:pokemonId" component={PokemonDetailContainer} />
+                <Route path="/pokemon/:pokemonId/item/:itemId" component={ItemDetailContainer} />
             </section>
         );
     }

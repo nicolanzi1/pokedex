@@ -12,10 +12,6 @@ export default class PokemonIndex extends Component {
     render () {
         const { pokemon } = this.props;
 
-        const pokemonItems = pokemon.map(poke => (
-            <PokemonIndexItem key={poke.id} pokemon={poke} />
-        ));
-
         return (
             <section className="pokedex">
                 <Route
@@ -23,7 +19,7 @@ export default class PokemonIndex extends Component {
                     component={PokemonDetailContainer}
                 />
                 <ul>
-                    {pokemonItems}
+                    {pokemon.map(poke => <PokemonIndexItem key={poke.id} pokemon={poke} />)}
                 </ul>
             </section>
         );
