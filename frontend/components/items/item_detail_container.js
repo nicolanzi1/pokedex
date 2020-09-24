@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import ItemDetail from './item_detail';
 import { selectPokemonItem } from '../../reducers/selector';
 
-const mapStateToProps = (state, ownProps) => ({
-    item: selectPokemonItem(state, ownProps.match.params.itemId)
+const mapStateToProps = (state, { match }) => ({
+    item: selectPokemonItem(state, parseInt(match.params.itemId))
 });
 
 export default connect(

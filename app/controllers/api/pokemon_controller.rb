@@ -1,12 +1,22 @@
 class Api::PokemonController < ApplicationController
   def index
     @pokemon = Pokemon.all
-    render json: @pokemon
+    # render json: @pokemon
   end
 
   def show
     @pokemon = Pokemon.find(params[:id])
-    render json: @pokemon
+    # render json: @pokemon
+  end
+
+  def create
+    @pokemon = Pokemon.new(pokemon_params)
+    if @pokemon.save
+      # render json: @pokemon
+      render :show
+    else
+      render json: @pokemon.errors.full_messages, status: 422
+    end
   end
 
   private
