@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { selectAllPokemon } from '../../reducers/selector';
+import PokemonIndexItem from './pokemon_index_item';
 
 export default class PokemonIndex extends Component {
     componentDidMount() {
@@ -9,12 +9,14 @@ export default class PokemonIndex extends Component {
     render () {
         const { pokemon } = this.props;
 
+        const pokemonItems = pokemon.map(poke => (
+            <PokemonIndexItem key={poke.id} pokemon={poke} />
+        ));
+
         return (
             <section className="pokedex">
                 <ul>
-                {pokemon.map((poke) => (
-                    <li key={poke.id}>{poke.name}</li>
-                ))}
+                    {pokemonItems}
                 </ul>
             </section>
         );
