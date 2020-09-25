@@ -1,10 +1,12 @@
 class Api::PokemonController < ApplicationController
   def index
+    sleep 1
     @pokemon = Pokemon.all
     # render json: @pokemon
   end
 
   def show
+    sleep 1
     @pokemon = Pokemon.find(params[:id])
     # render json: @pokemon
   end

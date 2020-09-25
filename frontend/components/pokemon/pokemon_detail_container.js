@@ -9,7 +9,8 @@ const mapStateToProps = (state, ownProps) => {
 
     return {
         pokemon,
-        items: selectPokeItems(state, pokemon)
+        items: selectPokeItems(state, pokemon),
+        loading: state.ui.loading.detailLoading
     };
 };
 

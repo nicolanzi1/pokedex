@@ -90,18 +90,22 @@
 /*!*********************************************!*\
   !*** ./frontend/actions/pokemon_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_ALL_POKEMON, RECEIVE_SINGLE_POKEMON, CREATE_POKEMON, RECEIVE_POKEMON_ERRORS, requestAllPokemon, requestSinglePokemon, createPokemon, receiveAllPokemon, receiveSinglePokemon, receivePokemonErrors */
+/*! exports provided: RECEIVE_ALL_POKEMON, RECEIVE_SINGLE_POKEMON, START_LOADING_ALL_POKEMON, START_LOADING_SINGLE_POKEMON, CREATE_POKEMON, RECEIVE_POKEMON_ERRORS, requestAllPokemon, requestSinglePokemon, createPokemon, startLoadingAllPokemon, startLoadingSinglePokemon, receiveAllPokemon, receiveSinglePokemon, receivePokemonErrors */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ALL_POKEMON", function() { return RECEIVE_ALL_POKEMON; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SINGLE_POKEMON", function() { return RECEIVE_SINGLE_POKEMON; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "START_LOADING_ALL_POKEMON", function() { return START_LOADING_ALL_POKEMON; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "START_LOADING_SINGLE_POKEMON", function() { return START_LOADING_SINGLE_POKEMON; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_POKEMON", function() { return CREATE_POKEMON; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_POKEMON_ERRORS", function() { return RECEIVE_POKEMON_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestAllPokemon", function() { return requestAllPokemon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestSinglePokemon", function() { return requestSinglePokemon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPokemon", function() { return createPokemon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startLoadingAllPokemon", function() { return startLoadingAllPokemon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startLoadingSinglePokemon", function() { return startLoadingSinglePokemon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveAllPokemon", function() { return receiveAllPokemon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveSinglePokemon", function() { return receiveSinglePokemon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receivePokemonErrors", function() { return receivePokemonErrors; });
@@ -109,10 +113,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var RECEIVE_ALL_POKEMON = 'RECEIVE_ALL_POKEMON';
 var RECEIVE_SINGLE_POKEMON = 'RECEIVE_SINGLE_POKEMON';
+var START_LOADING_ALL_POKEMON = 'START_LOADING_ALL_POKEMON';
+var START_LOADING_SINGLE_POKEMON = 'START_LOADING_SINGLE_POKEMON';
 var CREATE_POKEMON = 'CREATE_POKEMON';
 var RECEIVE_POKEMON_ERRORS = 'RECEIVE_POKEMON_ERRORS';
 var requestAllPokemon = function requestAllPokemon() {
   return function (dispatch) {
+    dispatch(startLoadingAllPokemon());
     return _util_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchAllPokemon"]().then(function (pokemon) {
       return dispatch(receiveAllPokemon(pokemon));
     });
@@ -120,6 +127,7 @@ var requestAllPokemon = function requestAllPokemon() {
 };
 var requestSinglePokemon = function requestSinglePokemon(id) {
   return function (dispatch) {
+    dispatch(startLoadingSinglePokemon());
     return _util_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSinglePokemon"](id).then(function (pokemon) {
       dispatch(receiveSinglePokemon(pokemon));
       return pokemon;
@@ -134,6 +142,16 @@ var createPokemon = function createPokemon(pokemon) {
     }).fail(function (err) {
       return dispatch(receivePokemonErrors(err.responseJSON));
     });
+  };
+};
+var startLoadingAllPokemon = function startLoadingAllPokemon() {
+  return {
+    type: START_LOADING_ALL_POKEMON
+  };
+};
+var startLoadingSinglePokemon = function startLoadingSinglePokemon() {
+  return {
+    type: START_LOADING_SINGLE_POKEMON
   };
 };
 var receiveAllPokemon = function receiveAllPokemon(pokemon) {
@@ -234,6 +252,31 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 /***/ }),
 
+/***/ "./frontend/components/pokemon/loading_icon.jsx":
+/*!******************************************************!*\
+  !*** ./frontend/components/pokemon/loading_icon.jsx ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var LoadingIcon = function LoadingIcon() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "loading-pokeball-container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "loading-pokeball"
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (LoadingIcon);
+
+/***/ }),
+
 /***/ "./frontend/components/pokemon/pokemon_detail.jsx":
 /*!********************************************************!*\
   !*** ./frontend/components/pokemon/pokemon_detail.jsx ***!
@@ -248,7 +291,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _items_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../items/item */ "./frontend/components/items/item.jsx");
-/* harmony import */ var _items_item_detail_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../items/item_detail_container */ "./frontend/components/items/item_detail_container.js");
+/* harmony import */ var _loading_icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./loading_icon */ "./frontend/components/pokemon/loading_icon.jsx");
+/* harmony import */ var _items_item_detail_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../items/item_detail_container */ "./frontend/components/items/item_detail_container.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -270,6 +314,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -304,7 +349,15 @@ var PokemonDetail = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this$props = this.props,
           pokemon = _this$props.pokemon,
-          items = _this$props.items;
+          items = _this$props.items,
+          loading = _this$props.loading;
+
+      if (loading) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "pokemon-detail"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading_icon__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+      }
+
       if (!pokemon) return null;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "pokemon-detail"
@@ -322,7 +375,7 @@ var PokemonDetail = /*#__PURE__*/function (_Component) {
         });
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/pokemon/:pokemonId/item/:itemId",
-        component: _items_item_detail_container__WEBPACK_IMPORTED_MODULE_3__["default"]
+        component: _items_item_detail_container__WEBPACK_IMPORTED_MODULE_4__["default"]
       }));
     }
   }]);
@@ -356,7 +409,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   var pokemon = state.entities.pokemon[ownProps.match.params.pokemonId];
   return {
     pokemon: pokemon,
-    items: Object(_reducers_selector__WEBPACK_IMPORTED_MODULE_3__["selectPokeItems"])(state, pokemon)
+    items: Object(_reducers_selector__WEBPACK_IMPORTED_MODULE_3__["selectPokeItems"])(state, pokemon),
+    loading: state.ui.loading.detailLoading
   };
 };
 
@@ -502,6 +556,18 @@ var PokemonForm = /*#__PURE__*/function (_Component) {
         value: this.state.defense,
         placeholder: "Defense",
         onChange: this.update("defense")
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        id: "move_1",
+        value: this.state.moves.move_1 || "",
+        placeholder: "Move 1",
+        onChange: this.updateMoves
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        id: "move_2",
+        value: this.state.moves.move_2 || "",
+        placeholder: "Move 2",
+        onChange: this.updateMoves
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Create Pokemon")));
     }
   }]);
@@ -562,8 +628,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _pokemon_index_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pokemon_index_item */ "./frontend/components/pokemon/pokemon_index_item.jsx");
-/* harmony import */ var _pokemon_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pokemon_form_container */ "./frontend/components/pokemon/pokemon_form_container.js");
-/* harmony import */ var _pokemon_detail_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pokemon_detail_container */ "./frontend/components/pokemon/pokemon_detail_container.js");
+/* harmony import */ var _loading_icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./loading_icon */ "./frontend/components/pokemon/loading_icon.jsx");
+/* harmony import */ var _pokemon_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pokemon_form_container */ "./frontend/components/pokemon/pokemon_form_container.js");
+/* harmony import */ var _pokemon_detail_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pokemon_detail_container */ "./frontend/components/pokemon/pokemon_detail_container.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -592,6 +659,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var PokemonIndex = /*#__PURE__*/function (_Component) {
   _inherits(PokemonIndex, _Component);
 
@@ -611,16 +679,23 @@ var PokemonIndex = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var pokemon = this.props.pokemon;
+      var _this$props = this.props,
+          pokemon = _this$props.pokemon,
+          loading = _this$props.loading;
+
+      if (loading) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading_icon__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+      }
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "pokedex"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         exact: true,
         path: "/",
-        component: _pokemon_form_container__WEBPACK_IMPORTED_MODULE_3__["default"]
+        component: _pokemon_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/pokemon/:pokemonId",
-        component: _pokemon_detail_container__WEBPACK_IMPORTED_MODULE_4__["default"]
+        component: _pokemon_detail_container__WEBPACK_IMPORTED_MODULE_5__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, pokemon.map(function (poke) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pokemon_index_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: poke.id,
@@ -657,7 +732,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    pokemon: Object(_reducers_selector__WEBPACK_IMPORTED_MODULE_3__["selectAllPokemon"])(state)
+    pokemon: Object(_reducers_selector__WEBPACK_IMPORTED_MODULE_3__["selectAllPokemon"])(state),
+    loading: state.ui.loading.indexLoading
   };
 };
 
@@ -844,6 +920,59 @@ var itemsReducer = function itemsReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/loading_reducer.js":
+/*!**********************************************!*\
+  !*** ./frontend/reducers/loading_reducer.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/pokemon_actions */ "./frontend/actions/pokemon_actions.js");
+
+var initialState = {
+  indexLoading: false,
+  detailLoading: false
+};
+
+var loadingReducer = function loadingReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ALL_POKEMON"]:
+      return Object.assign({}, state, {
+        indexLoading: false
+      });
+
+    case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SINGLE_POKEMON"]:
+    case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_POKEMON_ERRORS"]:
+      return Object.assign({}, state, {
+        detailLoading: false
+      });
+
+    case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__["START_LOADING_ALL_POKEMON"]:
+      return Object.assign({}, state, {
+        indexLoading: true
+      });
+
+    case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__["CREATE_POKEMON"]:
+    case _actions_pokemon_actions__WEBPACK_IMPORTED_MODULE_0__["START_LOADING_SINGLE_POKEMON"]:
+      return Object.assign({}, state, {
+        detailLoading: true
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (loadingReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/pokemon_reducer.js":
 /*!**********************************************!*\
   !*** ./frontend/reducers/pokemon_reducer.js ***!
@@ -940,10 +1069,13 @@ var selectPokemonItem = function selectPokemonItem(state, id) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _errors_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./errors_reducer */ "./frontend/reducers/errors_reducer.js");
+/* harmony import */ var _loading_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./loading_reducer */ "./frontend/reducers/loading_reducer.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  loading: _loading_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 }));
 
 /***/ }),

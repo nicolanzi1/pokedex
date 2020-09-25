@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import PokemonIndexItem from './pokemon_index_item';
+import LoadingIcon from './loading_icon';
 import PokemonFormContainer from './pokemon_form_container';
 import PokemonDetailContainer from './pokemon_detail_container';
 
@@ -11,7 +12,9 @@ export default class PokemonIndex extends Component {
     }
 
     render () {
-        const { pokemon } = this.props;
+        const { pokemon, loading } = this.props;
+
+        if (loading) { return <LoadingIcon />; }
 
         return (
             <section className="pokedex">

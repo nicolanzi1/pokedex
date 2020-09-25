@@ -81,6 +81,20 @@ class PokemonForm extends Component {
                         placeholder="Defense"
                         onChange={this.update("defense")}
                     />
+                    <input
+                        type="text"
+                        id="move_1"
+                        value={this.state.moves.move_1 || ""} 
+                        placeholder="Move 1"
+                        onChange={this.updateMoves}
+                    />
+                    <input
+                        type="text"
+                        id="move_2"
+                        value={this.state.moves.move_2 || ""}
+                        placeholder="Move 2"
+                        onChange={this.updateMoves}
+                    />
                     <button>Create Pokemon</button>
                 </form>
             </section>

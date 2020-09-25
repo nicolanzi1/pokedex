@@ -5,7 +5,8 @@ import { requestAllPokemon } from '../../actions/pokemon_actions';
 import { selectAllPokemon } from '../../reducers/selector';
 
 const mapStateToProps = state => ({
-    pokemon: selectAllPokemon(state)
+    pokemon: selectAllPokemon(state),
+    loading: state.ui.loading.indexLoading
 });
 
 const mapDispatchToProps = dispatch => ({
