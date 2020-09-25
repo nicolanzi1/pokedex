@@ -174,9 +174,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ToyItem = function ToyItem(_ref) {
   var item = _ref.item;
-
-  /*#__PURE__*/
-  react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/pokemon/".concat(item.pokemon_id, "/item/").concat(item.id)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: item.image_url,
@@ -203,7 +201,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ItemDetail = function ItemDetail(_ref) {
   var item = _ref.item;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, item.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Happiness: ", item.happiness), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Price: &#163", item.price));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, item.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Happiness: ", item.happiness), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Price: \xA3", item.price));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ItemDetail);
@@ -226,10 +224,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mapStateToProps = function mapStateToProps(state, _ref) {
-  var match = _ref.match;
+var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    item: Object(_reducers_selector__WEBPACK_IMPORTED_MODULE_2__["selectPokemonItem"])(state, parseInt(match.params.itemId))
+    item: Object(_reducers_selector__WEBPACK_IMPORTED_MODULE_2__["selectPokemonItem"])(state, ownProps.match.params.itemId)
   };
 };
 

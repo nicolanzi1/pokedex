@@ -4,7 +4,7 @@ const ItemDetail = ({ item }) => (
     <ul>
         <li><h3>{item.name}</h3></li>
         <li>Happiness: {item.happiness}</li>
-        <li>Price: &#163{item.price}</li>
+        <li>Price: &#163;{item.price}</li>
     </ul>
 );
 

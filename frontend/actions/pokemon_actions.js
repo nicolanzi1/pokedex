@@ -5,10 +5,10 @@ export const RECEIVE_SINGLE_POKEMON = 'RECEIVE_SINGLE_POKEMON';
 export const CREATE_POKEMON = 'CREATE_POKEMON';
 export const RECEIVE_POKEMON_ERRORS = 'RECEIVE_POKEMON_ERRORS';
 
-export const requestAllPokemon = () => (dispatch) => (
-    APIUtil.fetchAllPokemon()
+export const requestAllPokemon = () => (dispatch) => {
+    return APIUtil.fetchAllPokemon()
         .then(pokemon => dispatch(receiveAllPokemon(pokemon)))
-)
+}
 
 export const requestSinglePokemon = (id) => (dispatch) => {
     return APIUtil.fetchSinglePokemon(id).then(pokemon => {
